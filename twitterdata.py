@@ -7,16 +7,23 @@ import time
 import boto3
 import threading
 import os
+from pathlib import Path
 
 search_term = "trump"
 
+home = str(Path.home())
 
-config = {
-    "consumer_key" : "M3pMpicq5BjCdr06V9hUgah8D",
-    "consumer_secret" : "phnLBYoWeFlN2McsxqX7BOKs7j9IjOcelOEfQc19y8kBQjZQiW",
-    "access_key" : "766337204654317568-VzhJeBjU4S555FTshpAgUuSjiub2Uhw",
-    "access_secret" : "3eWcGrBGlNqXwOWN5lNZRs1Bw10g5I1iXjSWGbOFib0ZK"
-}
+with open("/{0}/twitter_keys.txt".format(home), "r") as f:
+    ck = f.readline().strip()
+    cs = f.readline().strip()
+    ak = f.readline().strip()
+    a_s = f.readline().strip()
+    config = {
+        "consumer_key" : ck,
+        "consumer_secret" : cs,
+        "access_key" : ak,
+        "access_secret" : a_s
+    }
  
 def send_to_s3(file_name):
     AWS_BUCKET = "marketing-analytics-megadados"
@@ -35,6 +42,7 @@ while True:
         tweet_iter = stream.statuses.filter(track = search_term)
         file_name = "twitter-data-{0}.txt".format(st)
         with open(file_name, "w") as f:
+            print("here")
             for tweet in tweet_iter:
                 f.write(str(tweet))
                 f.write("\n")
