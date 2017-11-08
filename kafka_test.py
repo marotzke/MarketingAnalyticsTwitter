@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-from twitter import *
-import re
+from kafka import KafkaProducer
+import json
+from twitter import TwitterStream, OAuth
 import datetime
 import time
 import boto3
@@ -11,8 +12,9 @@ from pathlib import Path
 
 search_term = "trump"
 
-home = str(Path.home())
+producer = KafkaProducer()
 
+home = str(Path.home())
 with open("/{0}/twitter_keys.txt".format(home), "r") as f:
     ck = f.readline().strip()
     cs = f.readline().strip()
@@ -49,6 +51,8 @@ while True:
         with open(file_name, "w") as f:
             print("here")
             for tweet in tweet_iter:
+                future = producer.send('trump', str.encode(tweet["text"]))
+                result = future.get(timeout=60)
                 f.write(str(tweet))
                 f.write("\n")
                 count += 1
@@ -56,5 +60,7 @@ while True:
                     break
         t1 = threading.Thread(target=send_to_s3, args=(file_name,))
         t1.start()
-    except:
-        time.sleep(1000)
+    except Exception as e:
+        print(e)
+        print('catch')
+        time.sleep(1)
