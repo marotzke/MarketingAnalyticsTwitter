@@ -29,7 +29,8 @@ if __name__ == "__main__":
     # x = counts.pprint()
     # counts.pprint()
     # logger.info(str(type(counts)))
-    counts.foreachRDD(lambda x: print('\n\n\n\n\n\n', x.take(1)))
+    counts.pprint()
+    # counts.foreachRDD(lambda x: print('\n\n\n\n\n\n', x.take(1)))
     # print(counts)
 
     ssc.start()

@@ -24,7 +24,7 @@ with open("/{0}/twitter_keys.txt".format(home), "r") as f:
         "access_key" : ak,
         "access_secret" : a_s
     }
- 
+
 def send_to_s3(file_name):
     AWS_BUCKET = "marketing-analytics-megadados"
     s3 = boto3.resource("s3")
@@ -37,7 +37,12 @@ while True:
     try:
         count = 0
         st = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d_%H:%M:%S')
-        auth = OAuth(config["access_key"], config["access_secret"], config["consumer_key"], config["consumer_secret"])
+        auth = OAuth(
+            config["access_key"],
+            config["access_secret"],
+            config["consumer_key"],
+            config["consumer_secret"]
+        )
         stream = TwitterStream(auth = auth, secure = True)
         tweet_iter = stream.statuses.filter(track = search_term)
         file_name = "twitter-data-{0}.txt".format(st)
