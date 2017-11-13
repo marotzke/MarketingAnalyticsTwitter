@@ -32,13 +32,8 @@ if __name__ == "__main__":
     lines = kvs.map(lambda x: x[1])
 
     counts = lines.map(mapping_func) \
-                  .reduce(lambda x, y: (xx + yy for xx, yy in zip(x, y)))
-    # x = counts.pprint()
-    # counts.pprint()
-    # logger.info(str(type(counts)))
+                  .reduce(lambda x, y: [xx + yy for xx, yy in zip(x, y)])
     counts.pprint()
-    # counts.foreachRDD(lambda x: print('\n\n\n\n\n\n', x.take(1)))
-    # print(counts)
 
     ssc.start()
     ssc.awaitTermination()
