@@ -5,9 +5,6 @@ from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 
-
-
-
 def mapping_func(line):
     # if 'text' in l:
     compound = float(vader.SentimentIntensityAnalyzer() \
