@@ -1,2 +1,5 @@
 derby.log
 metastore_db
+
+# batch
+twitter-data-*

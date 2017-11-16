@@ -47,19 +47,13 @@ while True:
         )
         stream = TwitterStream(auth = auth, secure = True)
         tweet_iter = stream.statuses.filter(track = search_term)
-        file_name = "twitter-data-{0}.txt".format(st)
-        with open(file_name, "w") as f:
-            print("here")
-            for tweet in tweet_iter:
-                future = producer.send('trump', str.encode(tweet["text"]))
-                result = future.get(timeout=60)
-                f.write(str(tweet))
-                f.write("\n")
-                count += 1
-                if count == 10000:
-                    break
-        t1 = threading.Thread(target=send_to_s3, args=(file_name,))
-        t1.start()
+        print("here")
+        for tweet in tweet_iter:
+            future = producer.send('trump', str.encode(tweet["text"]))
+            result = future.get(timeout=60)
+            count += 1
+            if count == 10000:
+                break
     except Exception as e:
         print(e)
         print('catch')
