@@ -1,0 +1,41 @@
+.card-login{
+    margin: 20px 25% 0 25%;
+}
+
+.login-input{
+    padding: 0 25% 0 15px;
+}
+
+.pantry-card{
+    margin: 20px 2% 0 60%;    
+}
+
+.row{
+    padding: 1% 2% 3% 2%;
+}
+
+.recipesContainer{
+    padding: 1% 2% 3% 2%;
+}
+
+.nav-wrapper{
+    background-color: #FFC000;
+}
+
+.redTab {
+    background-color: #FFC000;
+}
+
+.dialogContainer{
+    padding : 0 7% 0 7%
+}
+.autocomplete-wrapper{
+    margin-right: 20px,
+}
+.cardHeader{
+    padding-right: 100px,
+}
+
+.brand-logo{
+    margin-left: 10%,
+}
