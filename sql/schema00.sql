@@ -4,7 +4,7 @@ use marketing_analytics_twitter;
 
 create table topic (
 	topic_id integer not null auto_increment primary key,
-    topic_name varchar(500)
+    topic_name varchar(500) unique
 );
 
 create table sentiment (

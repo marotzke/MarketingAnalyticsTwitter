@@ -10,11 +10,14 @@ import threading
 import os
 from pathlib import Path
 
-search_term = "trump"
 
+search_term = "trump"  # twitter
+topic = 'trump'        # kafka
 producer = KafkaProducer()
-
 home = str(Path.home())
+
+
+
 with open("/{0}/twitter_keys.txt".format(home), "r") as f:
     ck = f.readline().strip()
     cs = f.readline().strip()
@@ -49,7 +52,7 @@ while True:
         tweet_iter = stream.statuses.filter(track = search_term)
         print("here")
         for tweet in tweet_iter:
-            future = producer.send('trump', str.encode(tweet["text"]))
+            future = producer.send(topic, str.encode(tweet["text"]))
             result = future.get(timeout=60)
             count += 1
             if count == 10000:

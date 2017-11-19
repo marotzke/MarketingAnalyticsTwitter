@@ -1,13 +1,18 @@
 use marketing_analytics_twitter;
 
 select
-	sum(sentiment_pos),
-    sum(sentiment_neg),
-    sum(sentiment_neu),
-    sum(sentiment_count)
+	sum(s.sentiment_pos),
+    sum(s.sentiment_neg),
+    sum(s.sentiment_neu),
+    sum(s.sentiment_count),
+    floor(unix_timestamp(s.sentiment_ts) / (2 * 60)) as tk
 from 
-	sentiment
+	sentiment as s
+inner join topic
+	using(topic_id)
 where 
-	topic_id = 4
+	topic.topic_name = "obama"
 group by 
-	floor(unix_timestamp(sentiment_ts) / (2 * 60)); -- 2 * 60 = 2min;
+	tk -- 2 * 60 = 2min
+order by tk desc limit 2;
+
