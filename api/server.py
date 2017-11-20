@@ -4,6 +4,7 @@ from connection_helper import ConnectionHelper
 from threading import BoundedSemaphore
 from time_data import time_data
 
+from json import dumps
 
 app = Flask(__name__)
 conn = ConnectionHelper()
@@ -43,14 +44,16 @@ def route_time_data():
 
 @app.route('/rtdata', methods=['GET'])
 def get_data():
-    if request.methods != 'GET':
+    global current
+    if request.method != 'GET':
         return 'Invalid Request', 400
 
-    return current, 200
+    return dumps(current), 200
 
 
 @app.route('/', methods=['POST'])
 def process():
+    global current
     if request.method != 'POST':
         return 'Invalid Request', 400
 

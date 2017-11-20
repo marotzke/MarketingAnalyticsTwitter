@@ -59,10 +59,11 @@ if __name__ == '__main__':
             for tweet in tweet_iter:
                 future = producer.send(topic, str.encode(tweet["text"]))
                 result = future.get(timeout=60)
-                count += 1
-                if count == 10000:
-                    break
+                time.sleep(0.2)
+                # count += 1
+                # if count == 10000:
+                #     break
         except Exception as e:
             print(e)
             print('catch')
-            time.sleep(100)
+            time.sleep(60)
