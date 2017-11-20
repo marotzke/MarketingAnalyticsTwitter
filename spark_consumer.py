@@ -19,13 +19,16 @@ def mapping_func(line):
 
 
 def send_rdd(rdd):
-    tmp = rdd.take(1)[0]
-    requests.post(url, json={
-        'good': tmp[0],
-        'neutral': tmp[1],
-        'bad': tmp[2],
-        'count': tmp[3]
-    })
+    try:
+        tmp = rdd.take(1)[0]
+        requests.post(url, json={
+            'good': tmp[0],
+            'neutral': tmp[1],
+            'bad': tmp[2],
+            'count': tmp[3]
+        })
+    except:
+        pass
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from flask import Flask, request
 from time import gmtime, strftime
-
+from json import dumps
 
 app = Flask(__name__)
 
@@ -30,14 +30,16 @@ def format_json(j):
 
 @app.route('/data', methods=['GET'])
 def get_data():
-    if request.methods != 'GET':
+    global current
+    if request.method != 'GET':
         return 'Invalid Request', 400
 
-    return current, 200
+    return dumps(current), 200
 
 
 @app.route('/', methods=['POST'])
 def process():
+    global current
     if request.method != 'POST':
         return 'Invalid Request', 400
 

@@ -2,22 +2,58 @@ import React, { Component } from 'react';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
 import dataColector from '../actions/product';
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {BarChart, Bar,Brush, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import Preloader from './Preloader'
 
 class MainItemList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data : []
+            data : [],
+            pos: true,
+            neg: true,
+            neu: true,
+            count: false,
+            realtime: true,
         }
     }
+
+    componentWillMount = () => {
+        dataColector.subscribe("pos",(newValue) => {
+            this.setState({pos : newValue})
+        })
+        dataColector.subscribe("neg",(newValue) => {
+            this.setState({neg : newValue})
+        })
+        dataColector.subscribe("neu",(newValue) => {
+            this.setState({neu : newValue})
+        })
+        dataColector.subscribe("count",(newValue) => {
+            this.setState({count : newValue})
+        })
+        dataColector.subscribe("realtime",(newValue) => {
+            this.setState({realtime : newValue})
+            if(newValue){
+                this.setState({data: []})
+                this.interval = setInterval(this.handleMostRecentData, 7000);                
+            }else{
+                clearInterval(this.interval);
+            }
+        })
+        dataColector.subscribe("data",(newValue) => {
+            this.setState({data : newValue})
+        })
+    }
     componentDidMount = () => {
-        setInterval(this.handleMostRecentData, 7000);
+        this.interval = setInterval(this.handleMostRecentData, 7000);
+    }
+
+    handleData = () => {
+        dataColector.getData
     }
 
     handleMostRecentData = () => {
-        dataColector.getData((response) => {
+        dataColector.getRealTimeData((response) => {
             if(response.status === 200){
                 let data = response.json().then((val) => {
                     var append = false                    
@@ -26,7 +62,7 @@ class MainItemList extends Component {
                         positive: parseInt(val['data']['positive']),
                         negative: parseInt(val['data']['negative']),
                         neutral: parseInt(val['data']['neutral']),
-                        // count: parseInt(val['data']['count']),
+                        count: parseInt(val['data']['count']),
                     }
                     if(this.state.data.length === 0){
                         append = true
@@ -43,14 +79,13 @@ class MainItemList extends Component {
                         // newList.concat(this.state.data)
                         this.setState({data: newList})
                         // this.state.data.push(newData)
-                        console.log("here")                
+                        console.log("here")
+                        append = false                
                     }
                     console.log(item)                                   
             })
             }  
-        })
-        // console.log(this.state.data)
-          
+        })          
     }
 
     render() {
@@ -68,11 +103,13 @@ class MainItemList extends Component {
                             <CartesianGrid strokeDasharray="3 3"/>
                             <Tooltip/>
                             <Legend />
-                            <Bar dataKey="positive" fill="#82ca9d" />
-                            <Bar dataKey="neutral" fill="#dbdb83" />
-                            <Bar dataKey="negative" fill="#db8785" />
+                            {!this.state.realtime ? <Brush dataKey='name' height={30} stroke="#FFC000"/> : null }
+                            {this.state.pos ? <Bar dataKey="positive" fill="#82ca9d" /> : null}
+                            {this.state.neu ? <Bar dataKey="neutral" fill="#dbdb83" /> : null}
+                            {this.state.neg ? <Bar dataKey="negative" fill="#db8785" /> : null}
+                            {this.state.count ? <Bar dataKey="count" fill="#77a9f9" /> : null}
                         </BarChart>
-                        : <Preloader/>}
+                        : <div>{this.state.realtime ? <Preloader/> : null}</div>}
                         </div>
                     </Card>
                 </div>

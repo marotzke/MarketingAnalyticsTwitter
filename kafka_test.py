@@ -57,4 +57,4 @@ while True:
     except Exception as e:
         print(e)
         print('catch')
-        time.sleep(100)
+        time.sleep(30)
