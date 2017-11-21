@@ -1,6 +1,6 @@
 # MarketingAnalyticsTwitter
 
-Project for BigData Discipline - Insper - Computer Engineering Program
+Project for BigData Discipline (Prof. Fabio Ayres) - Insper - Computer Engineering Program
 
 ## Project Description
 
@@ -17,6 +17,10 @@ The Business Model Canvas:
 To achieve the real-time processing we used a BigData Stream Processing paradigm. We used [Kafka](https://kafka.apache.org/) to manage the Stream of data. A Twitter API to collect tweets filtered by word of choice served as **Producer** and [SparkStreaming](https://spark.apache.org/streaming/) with PySpark to process batches of raw Tweets into sentiment value, it serves as **Consumer** to Kafka's topic.
 
 A **React** designed dashboard interacts with end-users providing the information from the tweet's sentiment analysis. Along with a **Python Flask** server the application distributes the data from SparkStream to both a **MySQL Database** for future analysis and long-term storage.
+
+
+![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Model.jpeg "Model")
+
 
 ## Running the application
 
@@ -44,7 +48,7 @@ application has it's own dependencies, which are listed bellow.
 
   * SparkStream Consumer
 
-    Download [Spark 2.2 binaries](https://spark.apache.org/downloads.html) and decompressit. Spark itself requires *Scala*, so you'll need to install that too. For Ubuntu, `# apt install scala` should resolve it. With that done, add spark's bin folder to your path, so that you can run spark commands from any directory in your machine with ease.
+    Download [Spark 2.2 binaries](https://spark.apache.org/downloads.html) and decompress it. Spark itself requires *Scala*, so you'll need to install that too. For Ubuntu, `# apt install scala` should resolve it. With that done, add spark's bin folder to your path, so that you can run spark commands from any directory in your machine with ease.
 
     With that, you'll need to download *Python3 Natural Language Took Kit (nltk)* with `# pip3 install nltk`, then, open a python3 terminal and import the nltk package (`>>> import nltk`) and then run `>>> nltk.download()`, which should open new window. On the *Models* tab, download the *vader_lexicon* package.
 
@@ -117,7 +121,7 @@ application has it's own dependencies, which are listed bellow.
 
      `$ npm start`
 
-After that, everything should be up and running at http://localhost:8888
+After that, your dashboard should be accessible at http://localhost:3000
 
 
 ### Relevant Links
