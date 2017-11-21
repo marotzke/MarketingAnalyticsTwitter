@@ -34,10 +34,10 @@ application has it's own dependencies, which are listed bellow.
     Download *Python3 Twitter Integration* with `# pip3 install twitter` and *Python3 Kafka Integration* with `# pip3 install kafka-python`. You'll also need to create a twitter API key and save it on your home folder in a file named `twitter_keys.txt` with each line being the value, as bellow:
 
     ```
-        consumer key
-        consumer secret
-        access key
-        access secret
+    consumer key
+    consumer secret
+    access key
+    access secret
     ```
 
     The producer has a direct communication with the *MySQL database*, so the MySQL configurations are also a requirement here.
@@ -46,9 +46,9 @@ application has it's own dependencies, which are listed bellow.
 
     Download [Spark 2.2 binaries](https://spark.apache.org/downloads.html) and decompressit. Spark itself requires *Scala*, so you'll need to install that too. For Ubuntu, `# apt install scala` should resolve it. With that done, add spark's bin folder to your path, so that you can run spark commands from any directory in your machine with ease.
 
-    With that, you'll need to download *Python3 Natural Language Took Kit (nltk)* with `# pip3 install nltk`, then, open a python3 terminal and import the nltk package (`>>> import nlktk`) and then run `>>> nltk.download()`, which should open new window. On the *Models* tab, download the *vader_lexicon* package.
+    With that, you'll need to download *Python3 Natural Language Took Kit (nltk)* with `# pip3 install nltk`, then, open a python3 terminal and import the nltk package (`>>> import nltk`) and then run `>>> nltk.download()`, which should open new window. On the *Models* tab, download the *vader_lexicon* package.
 
-    With all of that, the last thing needed for the SparkStream Consumer is to configure Python 3 for *PySpark*. First, download the *PySpark* package with `# pip3 install pyspark`. Then, set *PySpark* default Python to Python 3 by using `export PYSPARK_PYTHON=/usr/bin/python3` and `export PYSPARK_DRIVER_PYTHON=python3`. To avoid typing it every time you open a new terminal window, we advise you add those two lines to your .bashrc or equivalent.
+    With all of that, the last thing needed for the SparkStream Consumer is to configure Python 3 for *PySpark*. First, download the *PySpark* package with `# pip3 install pyspark`. Then, set *PySpark* default Python to Python 3 by using `$ export PYSPARK_PYTHON=/usr/bin/python3` and `$ export PYSPARK_DRIVER_PYTHON=python3`. To avoid typing it every time you open a new terminal window, we advise you add those two lines to your .bashrc or equivalent.
 
     The consumer has a direct communication with the *MySQL database*, so the MySQL configurations are also a requirement here.
 
@@ -67,23 +67,61 @@ application has it's own dependencies, which are listed bellow.
     With that, create a configuration file named `mysql-keys.txt` in your home folder with each line being as bellow:
 
     ```
-        host
-        user
-        password
+    host
+    user
+    password
     ```
 
     The default value for host is `localhost`, for user it's `root` and for password it's `1234`. If the file doesn't exists, the code will try to use those values, which might get you an error in case those aren't true for your computer.
 
-    After that, install the *Python3 MySQL connector* with `# pip3 install mysql-connector-python` for accessing the DB inside the cod.
+    After that, install the *Python3 MySQL connector* with `# pip3 install mysql-connector-python` for accessing the DB inside the code.
+
+  * React FrontEnd
+
+    For installing and configuring the frontend of the application, you'll simply need to have *node* of version 6 or greater, alongside *npm*. With those, just run `$ npm install` to install all other dependencies.
 
 ### Running commands
 
-  - How to use spark-streaming
-    https://www.rittmanmead.com/blog/2017/01/getting-started-with-spark-streaming-with-python-and-kafka/
+  With all the dependencies resolved (including the creation of the initial database), run the commands in the following order (the commands all take the foreground of your terminal, so run each on a different terminal window, or run them in background):
 
-  - Consumer run command:
+  1. Start Zookeeper + Kafka Streaming Context (inside the Kafka decompressed directory):
+
+     ```
+     $ bin/zookeeper-server-start.sh config/zookeeper.properties
+     $ bin/kafka-server-start.sh config/server.properties
+     ```
+
+  2. Start the Flask API:
+
+     ```
+        $ export FLASK_APP=api/server.py
+        $ python3 -m flask run
+     ```
+
+  3. Start the Kafka Producer:
+
+      `$ python3 kafka_test.py`
+
+  4. Start the Spark Consumer:
+
+     Depending on your Kafka version, you will need to run a different command, for Kafka 2.11, run:
+
     ```spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.2 spark_consumer.py```
 
-  - FrontEnd run command:
-    ```npm install```
-    ```npm start```
+    For Kafka 2.12, just change the 2.11 in the command:
+
+    ```spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.12:2.0.2 spark_consumer.py```
+
+
+  5. Start the FrontEnd:
+
+     `$ npm start`
+
+After that, everything should be up and running at http://localhost:8888
+
+
+### Relevant Links
+
+  - How to use spark-streaming
+
+    https://www.rittmanmead.com/blog/2017/01/getting-started-with-spark-streaming-with-python-and-kafka/
