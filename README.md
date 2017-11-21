@@ -20,9 +20,61 @@ A **React** designed dashboard interacts with end-users providing the informatio
 
 ## Running the application
 
-yet to come
+As previously said, the application is based on a [Kafka Producer](kafka_test.py), a
+[SparkStream Consumer](spark_consumer.py), a [Flask API](api/server.py), a
+[MySQL database](sql/schema00.sql) and a [React FrontEnd](front_end). Each part of the
+application has it's own dependencies, which are listed bellow.
 
 ### Pre-requirements
+
+  * Kafka Producer
+
+    Download [Kafka 2.11 or 2.12 binaries](https://kafka.apache.org/downloads) and decompress it.
+
+    Download *Python3 Twitter Integration* with `# pip3 install twitter` and *Python3 Kafka Integration* with `# pip3 install kafka-python`. You'll also need to create a twitter API key and save it on your home folder in a file named `twitter_keys.txt` with each line being the value, as bellow:
+
+    ```
+        consumer key
+        consumer secret
+        access key
+        access secret
+    ```
+
+    The producer has a direct communication with the *MySQL database*, so the MySQL configurations are also a requirement here.
+
+  * SparkStream Consumer
+
+    Download [Spark 2.2 binaries](https://spark.apache.org/downloads.html) and decompressit. Spark itself requires *Scala*, so you'll need to install that too. For Ubuntu, `# apt install scala` should resolve it. With that done, add spark's bin folder to your path, so that you can run spark commands from any directory in your machine with ease.
+
+    With that, you'll need to download *Python3 Natural Language Took Kit (nltk)* with `# pip3 install nltk`, then, open a python3 terminal and import the nltk package (`>>> import nlktk`) and then run `>>> nltk.download()`, which should open new window. On the *Models* tab, download the *vader_lexicon* package.
+
+    With all of that, the last thing needed for the SparkStream Consumer is to configure Python 3 for *PySpark*. First, download the *PySpark* package with `# pip3 install pyspark`. Then, set *PySpark* default Python to Python 3 by using `export PYSPARK_PYTHON=/usr/bin/python3` and `export PYSPARK_DRIVER_PYTHON=python3`. To avoid typing it every time you open a new terminal window, we advise you add those two lines to your .bashrc or equivalent.
+
+    The consumer has a direct communication with the *MySQL database*, so the MySQL configurations are also a requirement here.
+
+  * Flask API
+
+    Install *Flask for Python3* with `# pip3 install flask`.
+
+    The API has a direct communication with the *MySQL database*, so the MySQL configurations are also a requirement here.
+
+  * MySQL database
+
+    Install *MySQL Server*. We suggest downloading *MySQL Workbench* too for running the schema easier.
+
+    For creating the database, just run the [sql/schema00.sql](sql/schema00.sql) script.
+
+    With that, create a configuration file named `mysql-keys.txt` in your home folder with each line being as bellow:
+
+    ```
+        host
+        user
+        password
+    ```
+
+    The default value for host is `localhost`, for user it's `root` and for password it's `1234`. If the file doesn't exists, the code will try to use those values, which might get you an error in case those aren't true for your computer.
+
+    After that, install the *Python3 MySQL connector* with `# pip3 install mysql-connector-python` for accessing the DB inside the cod.
 
 ### Running commands
 

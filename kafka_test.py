@@ -5,7 +5,6 @@ import json
 from twitter import TwitterStream, OAuth
 import datetime
 import time
-import boto3
 import threading
 import os
 from pathlib import Path
@@ -26,15 +25,6 @@ with open("/{0}/twitter_keys.txt".format(home), "r") as f:
         "access_key" : ak,
         "access_secret" : a_s
     }
-
-
-def send_to_s3(file_name):
-    AWS_BUCKET = "marketing-analytics-megadados"
-    s3 = boto3.resource("s3")
-    with open(file_name,'rb') as f:
-        s3.Bucket(AWS_BUCKET).put_object(Key=file_name, Body=f)
-    print("sent")
-    os.remove(file_name)
 
 
 if __name__ == '__main__':
