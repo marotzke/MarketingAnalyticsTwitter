@@ -94,8 +94,8 @@ application has it's own dependencies, which are listed bellow.
   2. Start the Flask API:
 
      ```
-        $ export FLASK_APP=api/server.py
-        $ python3 -m flask run
+      $ export FLASK_APP=api/server.py
+      $ python3 -m flask run
      ```
 
   3. Start the Kafka Producer:
@@ -106,11 +106,13 @@ application has it's own dependencies, which are listed bellow.
 
      Depending on your Kafka version, you will need to run a different command, for Kafka 2.11, run:
 
-    ```spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.2 spark_consumer.py```
+     ```
+     $ spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.11:2.0.2 spark_consumer.py
+     ```
 
-    For Kafka 2.12, just change the 2.11 in the command:
+     For Kafka 2.12, just change the 2.11 in the command:
 
-    ```spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.12:2.0.2 spark_consumer.py```
+     ```$ spark-submit --packages org.apache.spark:spark-streaming-kafka-0-8_2.12:2.0.2 spark_consumer.py```
 
 
   5. Start the FrontEnd:
