@@ -66,7 +66,6 @@ if __name__ == "__main__":
                   .reduce(lambda x, y: [xx + yy for xx, yy in zip(x, y)])
 
     counts.foreachRDD(lambda x: send_rdd(x, id_, conn))  # counts is a dstream (stream of rdds)
-    counts.pprint()
 
     ssc.start()
     ssc.awaitTermination()

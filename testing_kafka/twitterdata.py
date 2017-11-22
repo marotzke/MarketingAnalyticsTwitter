@@ -47,7 +47,6 @@ while True:
         tweet_iter = stream.statuses.filter(track = search_term)
         file_name = "twitter-data-{0}.txt".format(st)
         with open(file_name, "w") as f:
-            print("here")
             for tweet in tweet_iter:
                 f.write(str(tweet))
                 f.write("\n")
