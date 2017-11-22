@@ -34,6 +34,11 @@ const styles = {
         marginBottom: 12,
         fontWeight: 400,
     },
+    headline2: {
+        fontSize: 16,
+        marginBottom: 12,
+        fontWeight: 400,
+    },
     customWidth: {
         width: 150,
     },
@@ -111,13 +116,13 @@ class SettingsMenu extends Component {
     
     getTimeUnit = (value) => {
         if(value < 3600){
-            return {time: value/60,scale: "minutos"}
+            return {time: value/60,scale: "Minutes"}
         }else if(value >= 3600 && value < 86400){
-            return {time: value/3600, scale: "horas"}
+            return {time: value/3600, scale: "Hours"}
         }else if(value >= 86400 && value < 604800){
-            return {time: value/86400,scale: "dias"}
+            return {time: value/86400,scale: "Days"}
         }else{
-            return {time: value/604800, scale: "semanas"}
+            return {time: value/604800, scale: "Weeks"}
         }
     }
 
@@ -133,7 +138,7 @@ class SettingsMenu extends Component {
                         console.log(pt)
                         var time = ctx.getTimeUnit(ctx.state.interval)
                         var item = {
-                            name: (prevstate + time["time"]).toString() + " " + time["scale"] + " atrás",
+                            name: (prevstate + time["time"]).toString() + " " + time["scale"] + " ago",
                             positive: parseInt(pt['positive']),
                             negative: parseInt(pt['negative']),
                             neutral: parseInt(pt['neutral']),
@@ -202,42 +207,46 @@ class SettingsMenu extends Component {
                         { !this.state.realtime ? 
                         <div style={styles.block}>
                             <h2 style={styles.headline}>Values</h2>
+                            <h3 style={styles.headline2}>Interval:</h3>
                             <SelectField value={this.state.interval}
                                          onChange={this.handleChangeInterval}
                                          style={styles.customWidth}>
-                                <MenuItem value={300} primaryText="5 Minutos" />
-                                <MenuItem value={600} primaryText="10 Minutos" />
-                                <MenuItem value={1800} primaryText="30 Minutos" />
-                                <MenuItem value={3600} primaryText="1 Hora" />
-                                <MenuItem value={7200} primaryText="2 Horas" />
-                                <MenuItem value={18000} primaryText="5 Horas" />
-                                <MenuItem value={86400} primaryText="1 Dia" />
-                                <MenuItem value={259200} primaryText="3 Dias" />
-                                <MenuItem value={604800} primaryText="1 Semana" />
+                                <MenuItem value={300} primaryText="5 Minutes" />
+                                <MenuItem value={600} primaryText="10 Minutes" />
+                                <MenuItem value={1800} primaryText="30 Minutes" />
+                                <MenuItem value={3600} primaryText="1 Hours" />
+                                <MenuItem value={7200} primaryText="2 Hours" />
+                                <MenuItem value={18000} primaryText="5 Hours" />
+                                <MenuItem value={86400} primaryText="1 Days" />
+                                <MenuItem value={259200} primaryText="3 Days" />
+                                <MenuItem value={604800} primaryText="1 Weeks" />
                             </SelectField>
                             {this.state.interval !== null ? 
+                            <div>
+                            <h3 style={styles.headline2}>Limit:</h3>
                             <SelectField value={this.state.limit}
                                          onChange={this.handleChangeLimit}
                                          style={styles.customWidth}>
                                 {this.state.interval < 1800 
-                                    ? <MenuItem value={1800/this.state.interval} primaryText="30 Minutos" /> : null}
+                                    ? <MenuItem value={1800/this.state.interval} primaryText="30 Minutes" /> : null}
                                 {this.state.interval < 3600 
-                                    ? <MenuItem value={3600/this.state.interval} primaryText="1 Hora" /> :null} 
+                                    ? <MenuItem value={3600/this.state.interval} primaryText="1 Hour" /> :null} 
                                 {this.state.interval < 7200 && this.state.interval >= 600 
-                                    ? <MenuItem value={7200/this.state.interval} primaryText="2 Horas" /> :null}
+                                    ? <MenuItem value={7200/this.state.interval} primaryText="2 Hours" /> :null}
                                 {this.state.interval < 18000 && this.state.interval >= 600 
-                                    ? <MenuItem value={18000/this.state.interval} primaryText="5 Horas" /> :null}
+                                    ? <MenuItem value={18000/this.state.interval} primaryText="5 Hours" /> :null}
                                 {this.state.interval <= 86400 && this.state.interval >= 1800 
-                                    ? <MenuItem value={86400/this.state.interval} primaryText="1 Dia" /> :null}
+                                    ? <MenuItem value={86400/this.state.interval} primaryText="1 Day" /> :null}
                                 {this.state.interval <= 86400 && this.state.interval >= 1800 
-                                    ? <MenuItem value={(86400*3)/this.state.interval} primaryText="3 Dias" /> :null}
+                                    ? <MenuItem value={(86400*3)/this.state.interval} primaryText="3 Days" /> :null}
                                 {this.state.interval >= 86400
-                                    ? <MenuItem value={604800/this.state.interval} primaryText="1 Semana" /> :null}
+                                    ? <MenuItem value={604800/this.state.interval} primaryText="1 Week" /> :null}
                                 {this.state.interval >= 259200 
-                                    ? <MenuItem value={(604800*4)/this.state.interval} primaryText="4 Semanas" /> :null}
+                                    ? <MenuItem value={(604800*4)/this.state.interval} primaryText="4 Weeks" /> :null}
                                 {this.state.interval >= 259200 
-                                    ? <MenuItem value={(604800*8)/this.state.interval} primaryText="8 Semanas" /> :null}
+                                    ? <MenuItem value={(604800*8)/this.state.interval} primaryText="8 Weeks" /> :null}
                             </SelectField>
+                            </div>
                             : null }
                             {
                                 this.state.limit ?
