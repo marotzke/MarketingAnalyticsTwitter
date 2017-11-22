@@ -18,7 +18,6 @@ To achieve the real-time processing we used a BigData Stream Processing paradigm
 
 A **React** designed dashboard interacts with end-users providing the information from the tweet's sentiment analysis. Along with a **Python Flask** server the application distributes the data from SparkStream to both a **MySQL Database** for future analysis and long-term storage.
 
-
 ![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Model.jpeg "Model")
 
 ### Dashboard Interface
@@ -26,7 +25,11 @@ A **React** designed dashboard interacts with end-users providing the informatio
 The react based dashboard uses the [Rechart](http://recharts.org/) library to plot and [Material UI](http://www.material-ui.com/) to compose the css and the basic components.
 It Allows users to analyze incoming real-time data from tweets and to collect values from the MySQL database from a specified interval for item and a specified amount of time in the past.
 
+**REAL-TIME MODE**
 ![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Screenshot.jpeg "Screenshot")
+
+**STORED DATA MODE**
+![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Screenshot2.jpeg "Screenshot")
 
 ## Running the application
 
