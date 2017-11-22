@@ -138,3 +138,11 @@ After that, your dashboard should be accessible at http://localhost:3000
   - How to use spark-streaming
 
     https://www.rittmanmead.com/blog/2017/01/getting-started-with-spark-streaming-with-python-and-kafka/
+
+
+## Next Steps
+  
+  - **Automate Deploy.**
+  - Host online as a Service access.
+  - Multiple words to collect from Kafka.
+  - Twitter Professional API to avoid overload.
