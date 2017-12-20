@@ -10,7 +10,7 @@ The goal of this is project is to provide a tool to better understand user react
 specific topic. Designed for Marketing Companies and Companies' Marketing Areas, this project has a dashboard that allows its users to monitor natural language interpreted sentiment from Tweets in real-time to better understand behavior and get insights for future campaigns.
 
 The Business Model Canvas:
-![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Canvas.jpeg "Canvas")
+![alt text](./images/Canvas.jpeg "Canvas")
 
 ### Technologies Involved
 
@@ -18,7 +18,7 @@ To achieve the real-time processing we used a BigData Stream Processing paradigm
 
 A **React** designed dashboard interacts with end-users providing the information from the tweet's sentiment analysis. Along with a **Python Flask** server the application distributes the data from SparkStream to both a **MySQL Database** for future analysis and long-term storage.
 
-![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Model.jpeg "Model")
+![alt text](./images/Model.jpeg "Model")
 
 ### Dashboard Interface
 
@@ -26,10 +26,10 @@ The react based dashboard uses the [Rechart](http://recharts.org/) library to pl
 It Allows users to analyze incoming real-time data from tweets and to collect values from the MySQL database from a specified interval for item and a specified amount of time in the past.
 
 **REAL-TIME MODE**
-![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Screenshot.jpeg "Screenshot")
+![alt text](./images/Screenshot.jpeg "Screenshot")
 
 **STORED DATA MODE**
-![alt text](https://raw.githubusercontent.com/MatheusDMD/MarketingAnalyticsTwitter/master/images/Screenshot2.jpeg "Screenshot")
+![alt text](./images/Screenshot2.jpeg "Screenshot")
 
 ## Running the application
 
